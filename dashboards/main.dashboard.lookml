@@ -88,19 +88,19 @@
     height: 3
   - title: Ingestion Data Size
     name: Ingestion Data Size
-    explore: ingestion_stats
+    explore: ingestion_metrics
     type: single_value
-    fields: [ingestion_stats.total_size_bytes, ingestion_stats.period]
+    fields: [ingestion_metrics.total_size_bytes, ingestion_metrics.period]
     filters:
-      ingestion_stats.log_type: -"FORWARDER_HEARTBEAT"
-    sorts: [ingestion_stats.period desc]
+      ingestion_metrics.log_type: -"FORWARDER_HEARTBEAT"
+    sorts: [ingestion_metrics.period desc]
     limit: 500
-    dynamic_fields: [{table_calculation: size_gb, label: Size (GB), expression: " round(${ingestion_stats.total_size_bytes}/1000/1000/1000,\
+    dynamic_fields: [{table_calculation: size_gb, label: Size (GB), expression: " round(${ingestion_metrics.total_size_bytes}/1000/1000/1000,\
           \ 2)", value_format: !!null '', value_format_name: !!null '', is_disabled: true,
           _kind_hint: dimension, _type_hint: number}, {table_calculation: delta, label: Delta,
-          expression: '${ingestion_stats.total_size_bytes} - offset(${ingestion_stats.total_size_bytes},1)',
+          expression: '${ingestion_metrics.total_size_bytes} - offset(${ingestion_metrics.total_size_bytes},1)',
           value_format: "#,##0.0,,,\" GB\";-#,##0.0,,,\" GB\"", value_format_name: !!null '', is_disabled: false,
-          _kind_hint: measure, _type_hint: number}, {measure: sum_of_size_bytes, based_on: ingestion_stats.size_bytes,
+          _kind_hint: measure, _type_hint: number}, {measure: sum_of_size_bytes, based_on: ingestion_metrics.size_bytes,
           type: sum, label: Sum of Size Bytes, expression: !!null '', _kind_hint: measure,
           _type_hint: number}]
     query_timezone: America/Los_Angeles
@@ -165,24 +165,24 @@
     note_display: hover
     note_text: Delta compared to previous time period
     listen:
-      Time: ingestion_stats.period_filter
+      Time: ingestion_metrics.period_filter
     row: 3
     col: 7
     width: 9
     height: 3
   - title: Events Over Time
     name: Events Over Time
-    explore: ingestion_stats
+    explore: ingestion_metrics
     type: looker_column
-    fields: [total_events_count, ingestion_stats.timestamp_date, ingestion_stats.log_type_for_drill]
-    pivots: [ingestion_stats.log_type_for_drill]
-    fill_fields: [ingestion_stats.timestamp_date]
+    fields: [total_events_count, ingestion_metrics.timestamp_date, ingestion_metrics.log_type_for_drill]
+    pivots: [ingestion_metrics.log_type_for_drill]
+    fill_fields: [ingestion_metrics.timestamp_date]
     filters:
-      ingestion_stats.log_type_for_drill: -"FORWARDER_HEARTBEAT",-NULL
-      ingestion_stats.period: This Period
-    sorts: [ingestion_stats.timestamp_date desc, ingestion_stats.log_type_for_drill]
+      ingestion_metrics.log_type_for_drill: -"FORWARDER_HEARTBEAT",-NULL
+      ingestion_metrics.period: This Period
+    sorts: [ingestion_metrics.timestamp_date desc, ingestion_metrics.log_type_for_drill]
     limit: 500
-    dynamic_fields: [{measure: total_events_count, based_on: ingestion_stats.entry_number,
+    dynamic_fields: [{measure: total_events_count, based_on: ingestion_metrics.entry_number,
         type: sum, label: Total Events Count, expression: !!null '', value_format: !!null '',
         value_format_name: !!null '', _kind_hint: measure, _type_hint: number}]
     query_timezone: America/Los_Angeles
@@ -225,7 +225,7 @@
     note_display: hover
     note_text: Trends for volume of different event types ingested by Chronicle
     listen:
-      Time: ingestion_stats.period_filter
+      Time: ingestion_metrics.period_filter
     row: 7
     col: 0
     width: 10
@@ -280,15 +280,15 @@
     height: 9
   - title: Events for Main Dashboard
     name: Events for Main Dashboard
-    explore: ingestion_stats
+    explore: ingestion_metrics
     type: single_value
-    fields: [ingestion_stats.total_entry_number, ingestion_stats.period]
+    fields: [ingestion_metrics.total_entry_number, ingestion_metrics.period]
     filters:
-      ingestion_stats.log_type: -"FORWARDER_HEARTBEAT"
-    sorts: [ingestion_stats.period desc]
+      ingestion_metrics.log_type: -"FORWARDER_HEARTBEAT"
+    sorts: [ingestion_metrics.period desc]
     limit: 500
-    dynamic_fields: [{table_calculation: delta, label: Delta, expression: '${ingestion_stats.total_entry_number}
-        - offset(${ingestion_stats.total_entry_number}, 1)',
+    dynamic_fields: [{table_calculation: delta, label: Delta, expression: '${ingestion_metrics.total_entry_number}
+        - offset(${ingestion_metrics.total_entry_number}, 1)',
         value_format: "#,##0,\" K\";-#,##0,\" K\"", value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     query_timezone: America/Los_Angeles
@@ -332,7 +332,7 @@
     note_display: hover
     note_text: Delta compared to previous time period
     listen:
-      Time: ingestion_stats.period_filter
+      Time: ingestion_metrics.period_filter
     row: 3
     col: 0
     width: 7
@@ -347,6 +347,6 @@
     ui_config:
       type: advanced
       display: popover
-    explore: ingestion_stats
+    explore: ingestion_metrics
     listens_to_filters: []
-    field: ingestion_stats.period_filter
+    field: ingestion_metrics.period_filter
