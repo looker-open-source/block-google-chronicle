@@ -61,9 +61,12 @@ view: ingestion_metrics {
       week,
       month,
       quarter,
+      hour,
+      minute,
       year
     ]
-    sql: ${TABLE}.end_time ;;
+    datatype: epoch
+    sql: UNIX_SECONDS(${TABLE}.end_time) ;;
   }
 
   dimension: error_code {
@@ -115,10 +118,10 @@ view: ingestion_metrics {
     sql: ${TABLE}.latency_overflow ;;
   }
 
-  dimension: latency_time_milliseconds {
-    type: number
-    sql: ${TABLE}.latency_time_milliseconds ;;
-  }
+  # dimension: latency_time_milliseconds {
+  #   type: number
+  #   sql: ${TABLE}.latency_time_milliseconds ;;
+  # }
 
   dimension: latency_underflow {
     type: number
@@ -145,10 +148,10 @@ view: ingestion_metrics {
     sql: ${TABLE}.namespace ;;
   }
 
-  dimension: normalization_state {
-    type: string
-    sql: ${TABLE}.normalization_state ;;
-  }
+  # dimension: normalization_state {
+  #   type: string
+  #   sql: ${TABLE}.normalization_state ;;
+  # }
 
   dimension: regex_filter {
     type: string
@@ -164,9 +167,12 @@ view: ingestion_metrics {
       week,
       month,
       quarter,
+      hour,
+      minute,
       year
     ]
-    sql: ${TABLE}.start_time ;;
+    datatype: epoch
+    sql: UNIX_SECONDS(${TABLE}.start_time) ;;
   }
 
   dimension: state {
@@ -174,9 +180,50 @@ view: ingestion_metrics {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: quota_rejected_long_term_log_volume {
+    type: number
+    sql: ${TABLE}.quota_rejected_long_term_log_volume ;;
+  }
+
+  dimension: quota_limit_per_day {
+    type: number
+    sql: ${TABLE}.quota_limit_per_day ;;
+  }
+
+  dimension: quota_rejected_short_term_log_volume {
+    type: number
+    sql: ${TABLE}.quota_rejected_short_term_log_volume ;;
+  }
+
+  dimension: quota_limit_per_second {
+    type: number
+    sql: ${TABLE}.quota_limit_per_second ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  measure: last_heartbeat_max {
+    hidden: yes
+    type: date
+    sql: MAX(${last_heartbeat_raw}) ;;
+  }
+
+  measure: minutes_since_last_heartbeat {
+    type: number
+    sql:  (DATETIME_DIFF(CURRENT_DATETIME(), ${last_heartbeat_max}, minute)) * 1 ;;
+  }
+  
+  measure: min_start_time {
+    type: date_time
+    sql: min(TIMESTAMP_SECONDS(${start_raw}));;
+  }
+
+  measure: max_end_time {
+    type: date_time
+    sql: max(TIMESTAMP_SECONDS(${end_raw}));;
   }
 }
 
