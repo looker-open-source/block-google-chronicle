@@ -11,7 +11,7 @@
     filters:
       ingestion_metrics.period: This Period
     sorts: [ingestion_metrics.total_entry_number desc]
-    limit: 500
+    limit: 50
     value_labels: legend
     label_type: labPer
     x_axis_gridlines: false
@@ -57,7 +57,7 @@
     filters:
       ingestion_metrics.period: This Period
     sorts: [ingestion_metrics.total_size_bytes desc]
-    limit: 500
+    limit: 50
     value_labels: legend
     label_type: labPer
     x_axis_gridlines: false
