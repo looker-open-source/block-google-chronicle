@@ -14,26 +14,30 @@ view: +ingestion_metrics {
       year
     ]
     datatype: epoch
-    sql: UNIX_SECONDS(TIMESTAMP ${start_time}) ;;
+    sql: UNIX_SECONDS(${TABLE}.start_time) ;;
   }
 
   measure: total_entry_number {
     type: sum
-    sql:${TABLE}.log_count;;
+    sql:
+    CASE
+      WHEN ${TABLE}.component = "Ingestion API"
+        THEN ${TABLE}.log_count
+    END;;
     # link: {
     #   label: "Data Ingestion and Health Dashboard"
     #   url: "@{DATA_INGESTION_AND_HEALTH_DASHBOARD}"
     #   icon_url: "@{DASHBOARD_ICON_URL}"
     # }
-  }
+    }
 
   measure: total_entry_number_in_million {
-    type: sum
+    type: number
     sql: round(${total_entry_number}/1000000, 0) ;;
   }
 
   measure: total_entry_number_in_million_for_drill {
-    type: sum
+    type: number
     sql: round(${total_entry_number}/1000000, 0) ;;
     # link: {
     #   label: "Data Ingestion and Health Dashboard"
@@ -45,30 +49,36 @@ view: +ingestion_metrics {
   measure: total_error_count_in_million {
     type: sum
     sql:
-    CASE
-      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_validation' THEN round(${event_count}/1000000, 0)
-      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_parsing' THEN round(${log_count}/1000000, 0)
-    END;;
+        CASE
+          WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_validation'
+            THEN round(${TABLE}.event_count/1000000, 0)
+          WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_parsing'
+            THEN round(${TABLE}.log_count/1000000, 0)
+        END;;
   }
 
   measure: total_size_bytes {
     type: sum
-    sql:${TABLE}.log_volume;;
-    # link: {
-    #   label: "Data Ingestion and Health Dashboard"
-    #   url: "@{DATA_INGESTION_AND_HEALTH_DASHBOARD}"
-    #   icon_url: "@{DASHBOARD_ICON_URL}"
-    # }
-  }
+    sql:
+        CASE
+          WHEN ${TABLE}.component = "Ingestion API"
+            THEN ${TABLE}.log_volume
+        END;;
+        # link: {
+        #   label: "Data Ingestion and Health Dashboard"
+        #   url: "@{DATA_INGESTION_AND_HEALTH_DASHBOARD}"
+        #   icon_url: "@{DASHBOARD_ICON_URL}"
+        # }
+    }
 
   measure: total_size_bytes_GB {
-    type: sum
-    sql: round(${log_volume}/1000/1000/1000, 2) ;;
+      type: number
+      sql: round(${total_size_bytes}/1000/1000/1000, 2) ;;
   }
 
   measure: total_size_bytes_GB_for_drill {
-    type: sum
-    sql: round(${log_volume}/1000/1000/1000, 2) ;;
+    type: number
+    sql: round(${total_size_bytes}/1000/1000/1000, 2) ;;
     # link: {
     #   label: "Data Ingestion and Health Dashboard"
     #   url: "@{DATA_INGESTION_AND_HEALTH_DASHBOARD}"
@@ -77,8 +87,8 @@ view: +ingestion_metrics {
   }
 
   measure: total_size_bytes_GiB {
-    type: sum
-    sql: round(${log_volume}/1024/1024/1024, 2) ;;
+    type: number
+    sql: round(${total_size_bytes}/1024/1024/1024, 2) ;;
   }
   measure: total_events {
     type: sum
@@ -88,12 +98,23 @@ view: +ingestion_metrics {
     END;;
   }
 
+  measure: total_events {
+    type: sum
+    sql:
+    CASE
+      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'validated' THEN ${TABLE}.event_count
+    END;;
+
+  }
+
   measure: total_error_events {
     type: sum
     sql:
     CASE
-      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_validation' THEN ${event_count}
-      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_parsing' THEN ${log_count}
+      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_validation'
+        THEN ${TABLE}.event_count
+      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_parsing'
+        THEN ${TABLE}.log_count
     END;;
   }
 
@@ -105,12 +126,11 @@ view: +ingestion_metrics {
     END;;
   }
 
-
   measure: total_validation_error_events {
     type: sum
     sql:
     CASE
-      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_validation' THEN ${event_count}
+      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_validation' THEN ${TABLE}.event_count
     END;;
   }
 
@@ -118,7 +138,7 @@ view: +ingestion_metrics {
     type: sum
     sql:
     CASE
-      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_parsing' THEN ${log_count}
+      WHEN ${TABLE}.component = 'Normalizer' AND ${TABLE}.state = 'failed_parsing' THEN ${TABLE}.log_count
     END;;
   }
 
@@ -132,12 +152,24 @@ view: +ingestion_metrics {
         WHEN {% date_start period_filter %} is not null AND {% date_end period_filter %} is not null /* date ranges or in the past x days */
           THEN
             CASE
-              WHEN UNIX_SECONDS(TIMESTAMP ${start_time}) >= UNIX_SECONDS({% date_start period_filter %})
-                AND UNIX_SECONDS(TIMESTAMP ${start_time}) <= UNIX_SECONDS({% date_end period_filter %})
+              WHEN ${end_raw} >= UNIX_SECONDS({% date_start period_filter %})
+                AND ${start_raw} <= UNIX_SECONDS({% date_end period_filter %})
                 THEN 'This Period'
-              WHEN UNIX_SECONDS(TIMESTAMP ${start_time}) >= UNIX_SECONDS(TIMESTAMP_ADD({% date_start period_filter %}, INTERVAL 1 * (TIMESTAMP_DIFF({% date_start period_filter %},{% date_end period_filter %}, DAY))  DAY))
-                AND UNIX_SECONDS(TIMESTAMP ${start_time}) <= UNIX_SECONDS(TIMESTAMP_ADD({% date_start period_filter %}, INTERVAL -1 DAY))
+              WHEN ${end_raw} >= UNIX_SECONDS(TIMESTAMP_ADD({% date_start period_filter %}, INTERVAL 1 * (TIMESTAMP_DIFF({% date_start period_filter %},{% date_end period_filter %}, DAY))  DAY))
+                AND ${start_raw} <= UNIX_SECONDS(TIMESTAMP_ADD({% date_start period_filter %}, INTERVAL -1 DAY))
                 THEN 'Previous Period'
+            END
+        WHEN {% date_start period_filter %} is not null
+          THEN
+            CASE
+              WHEN ${end_raw} >= UNIX_SECONDS({% date_start period_filter %})
+                THEN 'This Period'
+            END
+        WHEN {% date_end period_filter %} is not null
+          THEN
+            CASE
+              WHEN ${start_raw} <= UNIX_SECONDS({% date_end period_filter %})
+                THEN 'This Period'
             END
         END ;;
   }
