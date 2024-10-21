@@ -9,7 +9,7 @@
     type: looker_pie
     fields: [udm_events_aggregates.action, udm_events_aggregates.count]
     sorts: [udm_events_aggregates.count desc]
-    limit: 500
+    limit: 50
     value_labels: legend
     label_type: val
     inner_radius: 60
@@ -456,11 +456,10 @@
     height: 6
   - title: Sign In Location Map
     name: Sign In Location Map
-    explore: user_login_source_geo_ip
+    explore: udm_events_aggregates
     type: looker_map
-    fields: [user_login_source_geo_ip.principal_ip, user_login_source_geo_ip.location,
-      user_login_source_geo_ip.count]
-    sorts: [user_login_source_geo_ip.count desc]
+    fields: [udm_events_aggregates.count, udm_events_aggregates.principal_ip, udm_events_aggregates.principal_location__location]
+    sorts: [udm_events_aggregates.count desc]
     limit: 5000
     map_plot_mode: points
     heatmap_gridlines: false
@@ -489,7 +488,7 @@
     map_marker_radius_max: 20
     defaults_version: 1
     listen:
-      Time: user_login_source_geo_ip.time_filter
+      Time: udm_events_aggregates.event_hour_time
     row: 21
     col: 8
     width: 7
@@ -578,12 +577,12 @@
     height: 7
   - title: Sign Ins by Country
     name: Sign Ins by Country
-    explore: user_login_source_geo_ip
+    explore: udm_events_aggregates
     type: looker_bar
-    fields: [user_login_source_geo_ip.count, user_login_source_geo_ip.country_label]
+    fields: [udm_events_aggregates.principal_location__country_or_region, udm_events_aggregates.count]
     filters:
-      user_login_source_geo_ip.country_label: "-NULL"
-    sorts: [user_login_source_geo_ip.count desc 0, user_login_source_geo_ip.country_label]
+      udm_events_aggregates.principal_location__country_or_region: "-NULL"
+    sorts: [udm_events_aggregates.count desc, udm_events_aggregates.principal_location__country_or_region]
     limit: 5000
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -612,51 +611,27 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: Events Count, orientation: bottom, series: [{axisId: user_login_source_geo_ip.count,
-            id: user_login_source_geo_ip.count, name: User Login Source Geo IP}],
+    y_axes: [{label: Events Count, orientation: bottom, series: [{axisId: udm_events_aggregates.count,
+            id: udm_events_aggregates.count, name: Udm Events Aggregates}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Country
     series_types: {}
-    map_plot_mode: points
-    heatmap_gridlines: false
-    heatmap_gridlines_empty: false
-    heatmap_opacity: 0.5
-    show_region_field: true
-    draw_map_labels_above_data: true
-    map_tile_provider: dark
-    map_position: fit_data
-    map_scale_indicator: 'off'
-    map_pannable: true
-    map_zoomable: true
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: pixels
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: value
-    show_legend: true
-    quantize_map_value_colors: false
-    reverse_map_value_colors: false
-    map_latitude: 17.978733095556183
-    map_longitude: 6.50390625
-    map_zoom: 2
-    map_marker_radius_max: 20
     defaults_version: 1
     listen:
-      Time: user_login_source_geo_ip.time_filter
+      Time: udm_events_aggregates.event_hour_date
     row: 15
     col: 8
     width: 16
     height: 6
   - title: Top 10 Countries by Sign Ins
     name: Top 10 Countries by Sign Ins
-    explore: user_login_source_geo_ip
+    explore: udm_events_aggregates
     type: looker_pie
-    fields: [user_login_source_geo_ip.count, user_login_source_geo_ip.country_label]
+    fields: [udm_events_aggregates.count, udm_events_aggregates.principal_location__country_or_region]
     filters:
-      user_login_source_geo_ip.country_label: "-NULL"
-    sorts: [user_login_source_geo_ip.count desc 0, user_login_source_geo_ip.country_label]
+      udm_events_aggregates.principal_location__country_or_region: "-NULL"
+    sorts: [udm_events_aggregates.count desc, udm_events_aggregates.principal_location__country_or_region]
     limit: 10
     value_labels: legend
     label_type: labPer
@@ -694,34 +669,10 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    map_plot_mode: points
-    heatmap_gridlines: false
-    heatmap_gridlines_empty: false
-    heatmap_opacity: 0.5
-    show_region_field: true
-    draw_map_labels_above_data: true
-    map_tile_provider: dark
-    map_position: fit_data
-    map_scale_indicator: 'off'
-    map_pannable: true
-    map_zoomable: true
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: pixels
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: value
-    show_legend: true
-    quantize_map_value_colors: false
-    reverse_map_value_colors: false
-    map_latitude: 17.978733095556183
-    map_longitude: 6.50390625
-    map_zoom: 2
-    map_marker_radius_max: 20
     defaults_version: 1
     series_types: {}
     listen:
-      Time: user_login_source_geo_ip.time_filter
+      Time: udm_events_aggregates.event_hour_date
     row: 15
     col: 0
     width: 8
@@ -740,3 +691,4 @@
     explore: udm_events_aggregates
     listens_to_filters: []
     field: udm_events_aggregates.event_hour_time
+    

@@ -5,12 +5,12 @@
   elements:
   - title: Log Type Distribution by Events Count
     name: Log Type Distribution by Events Count
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_pie
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.total_entry_number]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.total_entry_number]
     filters:
-      ingestion_metric_with_ingestion_stats.period: This Period
-    sorts: [ingestion_metric_with_ingestion_stats.total_entry_number desc]
+      ingestion_metrics.period: This Period
+    sorts: [ingestion_metrics.total_entry_number desc]
     limit: 50
     value_labels: legend
     label_type: labPer
@@ -44,20 +44,20 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Time: ingestion_metric_with_ingestion_stats.period_filter
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Time: ingestion_metrics.period_filter
+      Log Type: ingestion_metrics.log_type
     row: 3
     col: 0
     width: 12
     height: 6
   - title: Log Type Distribution by Throughput
     name: Log Type Distribution by Throughput
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_pie
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.total_size_bytes]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.total_size_bytes]
     filters:
-      ingestion_metric_with_ingestion_stats.period: This Period
-    sorts: [ingestion_metric_with_ingestion_stats.total_size_bytes desc]
+      ingestion_metrics.period: This Period
+    sorts: [ingestion_metrics.total_size_bytes desc]
     limit: 50
     value_labels: legend
     label_type: labPer
@@ -91,20 +91,20 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Time: ingestion_metric_with_ingestion_stats.period_filter
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Time: ingestion_metrics.period_filter
+      Log Type: ingestion_metrics.log_type
     row: 3
     col: 12
     width: 12
     height: 6
   - title: Daily Log Information
     name: Daily Log Information
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_grid
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.timestamp_date, ingestion_metric_with_ingestion_stats.total_entry_number]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.timestamp_date, ingestion_metrics.total_entry_number]
     filters:
-      ingestion_metric_with_ingestion_stats.timestamp_time: 1 weeks
-    sorts: [ingestion_metric_with_ingestion_stats.timestamp_date desc]
+      ingestion_metrics.timestamp_time: 1 weeks
+    sorts: [ingestion_metrics.timestamp_date desc]
     limit: 100
     show_view_names: false
     show_row_numbers: false
@@ -131,20 +131,20 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 24
     col: 12
     width: 12
     height: 6
   - title: Event Count vs Size (Last 24 hours)
     name: Event Count vs Size (Last 24 hours)
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_line
-    fields: [ingestion_metric_with_ingestion_stats.timestamp_hour, ingestion_metric_with_ingestion_stats.total_entry_number, ingestion_metric_with_ingestion_stats.total_size_bytes_GiB]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_hour]
+    fields: [ingestion_metrics.timestamp_hour, ingestion_metrics.total_entry_number, ingestion_metrics.total_size_bytes_GiB]
+    fill_fields: [ingestion_metrics.timestamp_hour]
     filters:
-      ingestion_metric_with_ingestion_stats.timestamp_time: 1 days
-    sorts: [ingestion_metric_with_ingestion_stats.timestamp_hour desc]
+      ingestion_metrics.timestamp_time: 1 days
+    sorts: [ingestion_metrics.timestamp_hour desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -171,35 +171,35 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: ingestion_metric_with_ingestion_stats.count,
-            id: ingestion_metric_with_ingestion_stats.count, name: Ingestion Event Count}], showLabels: true,
+    y_axes: [{label: '', orientation: left, series: [{axisId: ingestion_metrics.count,
+            id: ingestion_metrics.count, name: Ingestion Event Count}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}, {label: '', orientation: right, series: [{axisId: ingestion_metric_with_ingestion_stats.total_size_bytes_GiB,
-            id: ingestion_metric_with_ingestion_stats.total_size_bytes_GiB, name: Total Size Bytes Gib}],
+        type: linear}, {label: '', orientation: right, series: [{axisId: ingestion_metrics.total_size_bytes_GiB,
+            id: ingestion_metrics.total_size_bytes_GiB, name: Total Size Bytes Gib}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         type: linear}]
     x_axis_label: Hours
     hidden_series: []
     series_labels:
-      ingestion_metric_with_ingestion_stats.count: Ingestion Event Count
-      ingestion_metric_with_ingestion_stats.total_size_bytes_GiB: Ingestion Throughput
-      ingestion_metric_with_ingestion_stats.total_entry_number: Ingested Event Count
+      ingestion_metrics.count: Ingestion Event Count
+      ingestion_metrics.total_size_bytes_GiB: Ingestion Throughput
+      ingestion_metrics.total_entry_number: Ingested Event Count
     defaults_version: 1
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 30
     col: 0
     width: 8
     height: 6
   - title: Event Count vs Size (Last 1 week)
     name: Event Count vs Size (Last 1 week)
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_line
-    fields: [ingestion_metric_with_ingestion_stats.timestamp_hour, ingestion_metric_with_ingestion_stats.total_entry_number, ingestion_metric_with_ingestion_stats.total_size_bytes_GiB]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_hour]
+    fields: [ingestion_metrics.timestamp_hour, ingestion_metrics.total_entry_number, ingestion_metrics.total_size_bytes_GiB]
+    fill_fields: [ingestion_metrics.timestamp_hour]
     filters:
-      ingestion_metric_with_ingestion_stats.timestamp_time: 7 days
-    sorts: [ingestion_metric_with_ingestion_stats.timestamp_hour desc]
+      ingestion_metrics.timestamp_time: 7 days
+    sorts: [ingestion_metrics.timestamp_hour desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -226,36 +226,36 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: ingestion_metric_with_ingestion_stats.count,
-            id: ingestion_metric_with_ingestion_stats.count, name: Ingestion Event Count}], showLabels: true,
+    y_axes: [{label: '', orientation: left, series: [{axisId: ingestion_metrics.count,
+            id: ingestion_metrics.count, name: Ingestion Event Count}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}, {label: '', orientation: right, series: [{axisId: ingestion_metric_with_ingestion_stats.total_size_bytes_GiB,
-            id: ingestion_metric_with_ingestion_stats.total_size_bytes_GiB, name: Total Size Bytes Gib}],
+        type: linear}, {label: '', orientation: right, series: [{axisId: ingestion_metrics.total_size_bytes_GiB,
+            id: ingestion_metrics.total_size_bytes_GiB, name: Total Size Bytes Gib}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         type: linear}]
     x_axis_label: Days
     hidden_series: []
     series_labels:
-      ingestion_metric_with_ingestion_stats.count: Ingestion Event Count
-      ingestion_metric_with_ingestion_stats.total_entry_number: Ingested Event Count
-      ingestion_metric_with_ingestion_stats.total_size_bytes_GiB: Ingestion Throughput
+      ingestion_metrics.count: Ingestion Event Count
+      ingestion_metrics.total_entry_number: Ingested Event Count
+      ingestion_metrics.total_size_bytes_GiB: Ingestion Throughput
     defaults_version: 1
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 30
     col: 8
     width: 8
     height: 6
   - title: Event Count vs Size (Last 3 months)
     name: Event Count vs Size (Last 3 months)
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_line
-    fields: [ingestion_metric_with_ingestion_stats.timestamp_month, ingestion_metric_with_ingestion_stats.total_entry_number,
-      ingestion_metric_with_ingestion_stats.total_size_bytes_GiB]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_month]
+    fields: [ingestion_metrics.timestamp_month, ingestion_metrics.total_entry_number,
+      ingestion_metrics.total_size_bytes_GiB]
+    fill_fields: [ingestion_metrics.timestamp_month]
     filters:
-      ingestion_metric_with_ingestion_stats.timestamp_time: 3 months
-    sorts: [ingestion_metric_with_ingestion_stats.timestamp_month desc]
+      ingestion_metrics.timestamp_time: 3 months
+    sorts: [ingestion_metrics.timestamp_month desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -282,39 +282,39 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: ingestion_metric_with_ingestion_stats.count,
-            id: ingestion_metric_with_ingestion_stats.count, name: Ingestion Event Count}], showLabels: true,
+    y_axes: [{label: '', orientation: left, series: [{axisId: ingestion_metrics.count,
+            id: ingestion_metrics.count, name: Ingestion Event Count}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}, {label: '', orientation: right, series: [{axisId: ingestion_metric_with_ingestion_stats.total_size_bytes_GiB,
-            id: ingestion_metric_with_ingestion_stats.total_size_bytes_GiB, name: Total Size Bytes Gib}],
+        type: linear}, {label: '', orientation: right, series: [{axisId: ingestion_metrics.total_size_bytes_GiB,
+            id: ingestion_metrics.total_size_bytes_GiB, name: Total Size Bytes Gib}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         type: linear}]
     x_axis_label: Months
     hidden_series: []
     series_colors:
-      ingestion_metric_with_ingestion_stats.total_entry_number: "#3EB0D5"
-      ingestion_metric_with_ingestion_stats.total_size_bytes_GiB: "#B1399E"
+      ingestion_metrics.total_entry_number: "#3EB0D5"
+      ingestion_metrics.total_size_bytes_GiB: "#B1399E"
     series_labels:
-      ingestion_metric_with_ingestion_stats.count: Ingestion Event Count
-      ingestion_metric_with_ingestion_stats.total_size_bytes_GiB: Ingestion Throughput
-      ingestion_metric_with_ingestion_stats.total_entry_number: Ingested Event Count
+      ingestion_metrics.count: Ingestion Event Count
+      ingestion_metrics.total_size_bytes_GiB: Ingestion Throughput
+      ingestion_metrics.total_entry_number: Ingested Event Count
     defaults_version: 1
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 30
     col: 16
     width: 8
     height: 6
   - title: Total Ingest Count
     name: Total Ingest Count
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: single_value
-    fields: [ingestion_metric_with_ingestion_stats.total_entry_number, ingestion_metric_with_ingestion_stats.period]
-    sorts: [ingestion_metric_with_ingestion_stats.period desc]
+    fields: [ingestion_metrics.total_entry_number, ingestion_metrics.period]
+    sorts: [ingestion_metrics.period desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: delta, label: Delta, expression: '${ingestion_metric_with_ingestion_stats.total_entry_number}
-          - offset(${ingestion_metric_with_ingestion_stats.total_entry_number}, 1)', value_format: "#,##0,\" K\";-#,##0,\" K\"",
+    dynamic_fields: [{table_calculation: delta, label: Delta, expression: '${ingestion_metrics.total_entry_number}
+          - offset(${ingestion_metrics.total_entry_number}, 1)', value_format: "#,##0,\" K\";-#,##0,\" K\"",
         value_format_name: !!null '', _kind_hint: measure, _type_hint: number}]
     query_timezone: America/Los_Angeles
     custom_color_enabled: true
@@ -357,21 +357,21 @@
     note_display: hover
     note_text: Delta compared to previous time period
     listen:
-      Time: ingestion_metric_with_ingestion_stats.period_filter
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Time: ingestion_metrics.period_filter
+      Log Type: ingestion_metrics.log_type
     row: 0
     col: 7
     width: 5
     height: 3
   - title: Total Error Count
     name: Total Error Count
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: single_value
-    fields: [ingestion_metric_with_ingestion_stats.total_error_events, ingestion_metric_with_ingestion_stats.period]
-    sorts: [ingestion_metric_with_ingestion_stats.period desc]
+    fields: [ingestion_metrics.total_error_events, ingestion_metrics.period]
+    sorts: [ingestion_metrics.period desc]
     limit: 500
-    dynamic_fields: [{table_calculation: delta, label: Delta, expression: '${ingestion_metric_with_ingestion_stats.total_error_events}
-          - offset(${ingestion_metric_with_ingestion_stats.total_error_events}, 1)', value_format: "#,##0.0,\" K\";-#,##0.0,\" K\"",
+    dynamic_fields: [{table_calculation: delta, label: Delta, expression: '${ingestion_metrics.total_error_events}
+          - offset(${ingestion_metrics.total_error_events}, 1)', value_format: "#,##0.0,\" K\";-#,##0.0,\" K\"",
         value_format_name: !!null '', _kind_hint: measure, _type_hint: number}]
     query_timezone: America/Los_Angeles
     custom_color_enabled: true
@@ -414,8 +414,8 @@
     note_display: hover
     note_text: Delta compared to previous time period
     listen:
-      Time: ingestion_metric_with_ingestion_stats.period_filter
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Time: ingestion_metrics.period_filter
+      Log Type: ingestion_metrics.log_type
     row: 0
     col: 19
     width: 5
@@ -440,10 +440,10 @@
     height: 3
   - title: Recently Ingested Events
     name: Recently Ingested Events
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_grid
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.timestamp_time]
-    sorts: [ingestion_metric_with_ingestion_stats.timestamp_time desc]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.timestamp_time]
+    sorts: [ingestion_metrics.timestamp_time desc]
     limit: 100
     query_timezone: America/Los_Angeles
     show_view_names: false
@@ -465,8 +465,8 @@
     show_totals: true
     show_row_totals: true
     series_labels:
-      ingestion_metric_with_ingestion_stats.log_type: Log Type
-      ingestion_metric_with_ingestion_stats.timestamp_time: Timestamp
+      ingestion_metrics.log_type: Log Type
+      ingestion_metrics.timestamp_time: Timestamp
     limit_displayed_rows_values:
       show_hide: show
       first_last: first
@@ -500,22 +500,22 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 24
     col: 0
     width: 12
     height: 6
   - title: Ingestion - Events by Status
     name: Ingestion - Events by Status
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_line
-    fields: [ingestion_metric_with_ingestion_stats.total_events, ingestion_metric_with_ingestion_stats.total_normalized_events,
-      ingestion_metric_with_ingestion_stats.total_error_events, ingestion_metric_with_ingestion_stats.total_parsing_error_events,
-      ingestion_metric_with_ingestion_stats.total_validation_error_events, ingestion_metric_with_ingestion_stats.timestamp_date]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_date]
+    fields: [ingestion_metrics.total_events, ingestion_metrics.total_normalized_events,
+      ingestion_metrics.total_error_events, ingestion_metrics.total_parsing_error_events,
+      ingestion_metrics.total_validation_error_events, ingestion_metrics.timestamp_date]
+    fill_fields: [ingestion_metrics.timestamp_date]
     filters:
-      ingestion_metric_with_ingestion_stats.period: This Period
-    sorts: [ingestion_metric_with_ingestion_stats.timestamp_date desc]
+      ingestion_metrics.period: This Period
+    sorts: [ingestion_metrics.timestamp_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -544,22 +544,22 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Time: ingestion_metric_with_ingestion_stats.period_filter
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Time: ingestion_metrics.period_filter
+      Log Type: ingestion_metrics.log_type
     row: 9
     col: 0
     width: 24
     height: 7
   - title: Ingestion - Events by Log Type
     name: Ingestion - Events by Log Type
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_grid
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.total_size_bytes, ingestion_metric_with_ingestion_stats.total_events,
-      ingestion_metric_with_ingestion_stats.total_normalized_events, ingestion_metric_with_ingestion_stats.total_error_events,
-      ingestion_metric_with_ingestion_stats.total_parsing_error_events, ingestion_metric_with_ingestion_stats.total_validation_error_events]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.total_size_bytes, ingestion_metrics.total_events,
+      ingestion_metrics.total_normalized_events, ingestion_metrics.total_error_events,
+      ingestion_metrics.total_parsing_error_events, ingestion_metrics.total_validation_error_events]
     filters:
-      ingestion_metric_with_ingestion_stats.period: This Period
-    sorts: [ingestion_metric_with_ingestion_stats.total_size_bytes desc]
+      ingestion_metrics.period: This Period
+    sorts: [ingestion_metrics.total_size_bytes desc]
     limit: 100
     query_timezone: America/Los_Angeles
     show_view_names: false
@@ -581,15 +581,15 @@
     show_totals: true
     show_row_totals: true
     series_labels:
-      ingestion_metric_with_ingestion_stats.log_type: Log Type
-      ingestion_metric_with_ingestion_stats.total_size_bytes: Ingested Throughput
-      ingestion_metric_with_ingestion_stats.total_events: Ingested Events
-      ingestion_metric_with_ingestion_stats.total_normalized_events: Normalized Events
-      ingestion_metric_with_ingestion_stats.total_error_events: Errors
-      ingestion_metric_with_ingestion_stats.total_parsing_error_events: Parsing Errors
-      ingestion_metric_with_ingestion_stats.total_validation_error_events: Validation Errors
+      ingestion_metrics.log_type: Log Type
+      ingestion_metrics.total_size_bytes: Ingested Throughput
+      ingestion_metrics.total_events: Ingested Events
+      ingestion_metrics.total_normalized_events: Normalized Events
+      ingestion_metrics.total_error_events: Errors
+      ingestion_metrics.total_parsing_error_events: Parsing Errors
+      ingestion_metrics.total_validation_error_events: Validation Errors
     series_cell_visualizations:
-      ingestion_metric_with_ingestion_stats.total_events:
+      ingestion_metrics.total_events:
         is_active: true
     limit_displayed_rows_values:
       show_hide: show
@@ -620,22 +620,22 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Time: ingestion_metric_with_ingestion_stats.period_filter
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Time: ingestion_metrics.period_filter
+      Log Type: ingestion_metrics.log_type
     row: 16
     col: 0
     width: 24
     height: 6
   - title: Ingestion - Throughput Hourly
     name: Ingestion - Throughput Hourly
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_area
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.total_size_bytes, ingestion_metric_with_ingestion_stats.timestamp_hour]
-    pivots: [ingestion_metric_with_ingestion_stats.log_type]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_hour]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.total_size_bytes, ingestion_metrics.timestamp_hour]
+    pivots: [ingestion_metrics.log_type]
+    fill_fields: [ingestion_metrics.timestamp_hour]
     filters:
-      ingestion_metric_with_ingestion_stats.timestamp_hour: 24 hours
-    sorts: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.timestamp_hour desc]
+      ingestion_metrics.timestamp_hour: 24 hours
+    sorts: [ingestion_metrics.log_type, ingestion_metrics.timestamp_hour desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -671,40 +671,40 @@
       options:
         steps: 5
     y_axes: [{label: Throughput %, orientation: left, series: [{axisId: ASSET_STATIC_IP
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: CORELIGHT}, {
-            axisId: ELASTIC_PACKETBEATS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_PACKETBEATS
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: FORWARDER_HEARTBEAT},
-          {axisId: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_CLOUD_NAT},
-          {axisId: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_FIREWALL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_VPC_FLOW},
-          {axisId: GMAIL_LOGS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GMAIL_LOGS -
-              ingestion_metric_with_ingestion_stats.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GSUITE_AUDIT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: POWERSHELL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SNORT_IDS}, {
-            axisId: SQUID_WEBPROXY - ingestion_metric_with_ingestion_stats.total_size_bytes, id: SQUID_WEBPROXY
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: UDM - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: UDM}, {axisId: WAZUH - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WAZUH
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINDOWS_AD - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WINDOWS_SYSMON},
-          {axisId: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes,
+              - ingestion_metrics.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metrics.total_size_bytes,
+            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metrics.total_size_bytes,
+            id: CORELIGHT - ingestion_metrics.total_size_bytes, name: CORELIGHT}, {
+            axisId: ELASTIC_PACKETBEATS - ingestion_metrics.total_size_bytes, id: ELASTIC_PACKETBEATS
+              - ingestion_metrics.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
+              - ingestion_metrics.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metrics.total_size_bytes,
+            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes,
+            id: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes, name: FORWARDER_HEARTBEAT},
+          {axisId: GCP - ingestion_metrics.total_size_bytes, id: GCP - ingestion_metrics.total_size_bytes,
+            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes,
+            id: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes, name: GCP_CLOUD_NAT},
+          {axisId: GCP_CSCC - ingestion_metrics.total_size_bytes, id: GCP_CSCC - ingestion_metrics.total_size_bytes,
+            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metrics.total_size_bytes,
+            id: GCP_DNS - ingestion_metrics.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
+              - ingestion_metrics.total_size_bytes, id: GCP_FIREWALL - ingestion_metrics.total_size_bytes,
+            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes,
+            id: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes, name: GCP_VPC_FLOW},
+          {axisId: GMAIL_LOGS - ingestion_metrics.total_size_bytes, id: GMAIL_LOGS -
+              ingestion_metrics.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
+              - ingestion_metrics.total_size_bytes, id: GSUITE_AUDIT - ingestion_metrics.total_size_bytes,
+            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metrics.total_size_bytes,
+            id: LINUX_OS - ingestion_metrics.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
+              - ingestion_metrics.total_size_bytes, id: POWERSHELL - ingestion_metrics.total_size_bytes,
+            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metrics.total_size_bytes,
+            id: SNORT_IDS - ingestion_metrics.total_size_bytes, name: SNORT_IDS}, {
+            axisId: SQUID_WEBPROXY - ingestion_metrics.total_size_bytes, id: SQUID_WEBPROXY
+              - ingestion_metrics.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
+              - ingestion_metrics.total_size_bytes, id: UDM - ingestion_metrics.total_size_bytes,
+            name: UDM}, {axisId: WAZUH - ingestion_metrics.total_size_bytes, id: WAZUH
+              - ingestion_metrics.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
+              - ingestion_metrics.total_size_bytes, id: WINDOWS_AD - ingestion_metrics.total_size_bytes,
+            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes,
+            id: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes, name: WINDOWS_SYSMON},
+          {axisId: WINEVTLOG - ingestion_metrics.total_size_bytes, id: WINEVTLOG - ingestion_metrics.total_size_bytes,
             name: WINEVTLOG}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     limit_displayed_rows_values:
@@ -714,13 +714,13 @@
     series_types: {}
     series_colors: {}
     series_labels:
-      ingestion_metric_with_ingestion_stats.log_type: Data Type
-      ingestion_metric_with_ingestion_stats.total_size_bytes: Ingested Throughput
-      ingestion_metric_with_ingestion_stats.total_events: Ingested Events
-      ingestion_metric_with_ingestion_stats.total_normalized_events: Normalized Events
-      ingestion_metric_with_ingestion_stats.total_error_events: Errors
-      ingestion_metric_with_ingestion_stats.total_parsing_error_events: Parsing Errors
-      ingestion_metric_with_ingestion_stats.total_validation_error_events: Validation Errors
+      ingestion_metrics.log_type: Data Type
+      ingestion_metrics.total_size_bytes: Ingested Throughput
+      ingestion_metrics.total_events: Ingested Events
+      ingestion_metrics.total_normalized_events: Normalized Events
+      ingestion_metrics.total_error_events: Errors
+      ingestion_metrics.total_parsing_error_events: Parsing Errors
+      ingestion_metrics.total_validation_error_events: Validation Errors
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
@@ -729,7 +729,7 @@
     truncate_text: true
     size_to_fit: true
     series_cell_visualizations:
-      ingestion_metric_with_ingestion_stats.total_events:
+      ingestion_metrics.total_events:
         is_active: true
     table_theme: unstyled
     enable_conditional_formatting: false
@@ -742,21 +742,21 @@
     hide_totals: false
     hide_row_totals: false
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 36
     col: 0
     width: 24
     height: 7
   - title: Ingestion - Throughput Weekly
     name: Ingestion - Throughput Weekly
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_area
-    fields: [ingestion_metric_with_ingestion_stats.timestamp_week, ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.total_size_bytes]
-    pivots: [ingestion_metric_with_ingestion_stats.log_type]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_week]
+    fields: [ingestion_metrics.timestamp_week, ingestion_metrics.log_type, ingestion_metrics.total_size_bytes]
+    pivots: [ingestion_metrics.log_type]
+    fill_fields: [ingestion_metrics.timestamp_week]
     filters:
-      ingestion_metric_with_ingestion_stats.timestamp_time: 7 weeks
-    sorts: [ingestion_metric_with_ingestion_stats.timestamp_week desc, ingestion_metric_with_ingestion_stats.log_type]
+      ingestion_metrics.timestamp_time: 7 weeks
+    sorts: [ingestion_metrics.timestamp_week desc, ingestion_metrics.log_type]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -792,40 +792,40 @@
       options:
         steps: 5
     y_axes: [{label: Throughput %, orientation: left, series: [{axisId: ASSET_STATIC_IP
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: CORELIGHT}, {
-            axisId: ELASTIC_PACKETBEATS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_PACKETBEATS
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: FORWARDER_HEARTBEAT},
-          {axisId: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_CLOUD_NAT},
-          {axisId: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_FIREWALL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_VPC_FLOW},
-          {axisId: GMAIL_LOGS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GMAIL_LOGS -
-              ingestion_metric_with_ingestion_stats.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GSUITE_AUDIT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: POWERSHELL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SNORT_IDS}, {
-            axisId: SQUID_WEBPROXY - ingestion_metric_with_ingestion_stats.total_size_bytes, id: SQUID_WEBPROXY
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: UDM - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: UDM}, {axisId: WAZUH - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WAZUH
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINDOWS_AD - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WINDOWS_SYSMON},
-          {axisId: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes,
+              - ingestion_metrics.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metrics.total_size_bytes,
+            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metrics.total_size_bytes,
+            id: CORELIGHT - ingestion_metrics.total_size_bytes, name: CORELIGHT}, {
+            axisId: ELASTIC_PACKETBEATS - ingestion_metrics.total_size_bytes, id: ELASTIC_PACKETBEATS
+              - ingestion_metrics.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
+              - ingestion_metrics.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metrics.total_size_bytes,
+            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes,
+            id: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes, name: FORWARDER_HEARTBEAT},
+          {axisId: GCP - ingestion_metrics.total_size_bytes, id: GCP - ingestion_metrics.total_size_bytes,
+            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes,
+            id: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes, name: GCP_CLOUD_NAT},
+          {axisId: GCP_CSCC - ingestion_metrics.total_size_bytes, id: GCP_CSCC - ingestion_metrics.total_size_bytes,
+            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metrics.total_size_bytes,
+            id: GCP_DNS - ingestion_metrics.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
+              - ingestion_metrics.total_size_bytes, id: GCP_FIREWALL - ingestion_metrics.total_size_bytes,
+            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes,
+            id: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes, name: GCP_VPC_FLOW},
+          {axisId: GMAIL_LOGS - ingestion_metrics.total_size_bytes, id: GMAIL_LOGS -
+              ingestion_metrics.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
+              - ingestion_metrics.total_size_bytes, id: GSUITE_AUDIT - ingestion_metrics.total_size_bytes,
+            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metrics.total_size_bytes,
+            id: LINUX_OS - ingestion_metrics.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
+              - ingestion_metrics.total_size_bytes, id: POWERSHELL - ingestion_metrics.total_size_bytes,
+            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metrics.total_size_bytes,
+            id: SNORT_IDS - ingestion_metrics.total_size_bytes, name: SNORT_IDS}, {
+            axisId: SQUID_WEBPROXY - ingestion_metrics.total_size_bytes, id: SQUID_WEBPROXY
+              - ingestion_metrics.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
+              - ingestion_metrics.total_size_bytes, id: UDM - ingestion_metrics.total_size_bytes,
+            name: UDM}, {axisId: WAZUH - ingestion_metrics.total_size_bytes, id: WAZUH
+              - ingestion_metrics.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
+              - ingestion_metrics.total_size_bytes, id: WINDOWS_AD - ingestion_metrics.total_size_bytes,
+            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes,
+            id: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes, name: WINDOWS_SYSMON},
+          {axisId: WINEVTLOG - ingestion_metrics.total_size_bytes, id: WINEVTLOG - ingestion_metrics.total_size_bytes,
             name: WINEVTLOG}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     limit_displayed_rows_values:
@@ -835,13 +835,13 @@
     series_types: {}
     series_colors: {}
     series_labels:
-      ingestion_metric_with_ingestion_stats.log_type: Data Type
-      ingestion_metric_with_ingestion_stats.total_size_bytes: Ingested Throughput
-      ingestion_metric_with_ingestion_stats.total_events: Ingested Events
-      ingestion_metric_with_ingestion_stats.total_normalized_events: Normalized Events
-      ingestion_metric_with_ingestion_stats.total_error_events: Errors
-      ingestion_metric_with_ingestion_stats.total_parsing_error_events: Parsing Errors
-      ingestion_metric_with_ingestion_stats.total_validation_error_events: Validation Errors
+      ingestion_metrics.log_type: Data Type
+      ingestion_metrics.total_size_bytes: Ingested Throughput
+      ingestion_metrics.total_events: Ingested Events
+      ingestion_metrics.total_normalized_events: Normalized Events
+      ingestion_metrics.total_error_events: Errors
+      ingestion_metrics.total_parsing_error_events: Parsing Errors
+      ingestion_metrics.total_validation_error_events: Validation Errors
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
@@ -850,7 +850,7 @@
     truncate_text: true
     size_to_fit: true
     series_cell_visualizations:
-      ingestion_metric_with_ingestion_stats.total_events:
+      ingestion_metrics.total_events:
         is_active: true
     table_theme: unstyled
     enable_conditional_formatting: false
@@ -863,21 +863,21 @@
     hide_totals: false
     hide_row_totals: false
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 43
     col: 0
     width: 24
     height: 7
   - title: Ingestion - Throughput(Last 6 Months)
     name: Ingestion - Throughput(Last 6 Months)
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_area
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.total_size_bytes, ingestion_metric_with_ingestion_stats.timestamp_month]
-    pivots: [ingestion_metric_with_ingestion_stats.log_type]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_month]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.total_size_bytes, ingestion_metrics.timestamp_month]
+    pivots: [ingestion_metrics.log_type]
+    fill_fields: [ingestion_metrics.timestamp_month]
     filters:
-      ingestion_metric_with_ingestion_stats.timestamp_month: 6 months
-    sorts: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.timestamp_month desc]
+      ingestion_metrics.timestamp_month: 6 months
+    sorts: [ingestion_metrics.log_type, ingestion_metrics.timestamp_month desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -913,40 +913,40 @@
       options:
         steps: 5
     y_axes: [{label: Throughput %, orientation: left, series: [{axisId: ASSET_STATIC_IP
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: CORELIGHT}, {
-            axisId: ELASTIC_PACKETBEATS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_PACKETBEATS
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: FORWARDER_HEARTBEAT},
-          {axisId: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_CLOUD_NAT},
-          {axisId: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_FIREWALL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_VPC_FLOW},
-          {axisId: GMAIL_LOGS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GMAIL_LOGS -
-              ingestion_metric_with_ingestion_stats.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GSUITE_AUDIT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: POWERSHELL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SNORT_IDS}, {
-            axisId: SQUID_WEBPROXY - ingestion_metric_with_ingestion_stats.total_size_bytes, id: SQUID_WEBPROXY
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: UDM - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: UDM}, {axisId: WAZUH - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WAZUH
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINDOWS_AD - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WINDOWS_SYSMON},
-          {axisId: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes,
+              - ingestion_metrics.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metrics.total_size_bytes,
+            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metrics.total_size_bytes,
+            id: CORELIGHT - ingestion_metrics.total_size_bytes, name: CORELIGHT}, {
+            axisId: ELASTIC_PACKETBEATS - ingestion_metrics.total_size_bytes, id: ELASTIC_PACKETBEATS
+              - ingestion_metrics.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
+              - ingestion_metrics.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metrics.total_size_bytes,
+            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes,
+            id: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes, name: FORWARDER_HEARTBEAT},
+          {axisId: GCP - ingestion_metrics.total_size_bytes, id: GCP - ingestion_metrics.total_size_bytes,
+            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes,
+            id: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes, name: GCP_CLOUD_NAT},
+          {axisId: GCP_CSCC - ingestion_metrics.total_size_bytes, id: GCP_CSCC - ingestion_metrics.total_size_bytes,
+            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metrics.total_size_bytes,
+            id: GCP_DNS - ingestion_metrics.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
+              - ingestion_metrics.total_size_bytes, id: GCP_FIREWALL - ingestion_metrics.total_size_bytes,
+            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes,
+            id: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes, name: GCP_VPC_FLOW},
+          {axisId: GMAIL_LOGS - ingestion_metrics.total_size_bytes, id: GMAIL_LOGS -
+              ingestion_metrics.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
+              - ingestion_metrics.total_size_bytes, id: GSUITE_AUDIT - ingestion_metrics.total_size_bytes,
+            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metrics.total_size_bytes,
+            id: LINUX_OS - ingestion_metrics.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
+              - ingestion_metrics.total_size_bytes, id: POWERSHELL - ingestion_metrics.total_size_bytes,
+            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metrics.total_size_bytes,
+            id: SNORT_IDS - ingestion_metrics.total_size_bytes, name: SNORT_IDS}, {
+            axisId: SQUID_WEBPROXY - ingestion_metrics.total_size_bytes, id: SQUID_WEBPROXY
+              - ingestion_metrics.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
+              - ingestion_metrics.total_size_bytes, id: UDM - ingestion_metrics.total_size_bytes,
+            name: UDM}, {axisId: WAZUH - ingestion_metrics.total_size_bytes, id: WAZUH
+              - ingestion_metrics.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
+              - ingestion_metrics.total_size_bytes, id: WINDOWS_AD - ingestion_metrics.total_size_bytes,
+            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes,
+            id: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes, name: WINDOWS_SYSMON},
+          {axisId: WINEVTLOG - ingestion_metrics.total_size_bytes, id: WINEVTLOG - ingestion_metrics.total_size_bytes,
             name: WINEVTLOG}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     limit_displayed_rows_values:
@@ -956,13 +956,13 @@
     series_types: {}
     series_colors: {}
     series_labels:
-      ingestion_metric_with_ingestion_stats.log_type: Data Type
-      ingestion_metric_with_ingestion_stats.total_size_bytes: Ingested Throughput
-      ingestion_metric_with_ingestion_stats.total_events: Ingested Events
-      ingestion_metric_with_ingestion_stats.total_normalized_events: Normalized Events
-      ingestion_metric_with_ingestion_stats.total_error_events: Errors
-      ingestion_metric_with_ingestion_stats.total_parsing_error_events: Parsing Errors
-      ingestion_metric_with_ingestion_stats.total_validation_error_events: Validation Errors
+      ingestion_metrics.log_type: Data Type
+      ingestion_metrics.total_size_bytes: Ingested Throughput
+      ingestion_metrics.total_events: Ingested Events
+      ingestion_metrics.total_normalized_events: Normalized Events
+      ingestion_metrics.total_error_events: Errors
+      ingestion_metrics.total_parsing_error_events: Parsing Errors
+      ingestion_metrics.total_validation_error_events: Validation Errors
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
@@ -971,7 +971,7 @@
     truncate_text: true
     size_to_fit: true
     series_cell_visualizations:
-      ingestion_metric_with_ingestion_stats.total_events:
+      ingestion_metrics.total_events:
         is_active: true
     table_theme: unstyled
     enable_conditional_formatting: false
@@ -984,19 +984,19 @@
     hide_totals: false
     hide_row_totals: false
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 50
     col: 0
     width: 24
     height: 7
   - title: Ingestion - Throughput(All Time)
     name: Ingestion - Throughput(All Time)
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     type: looker_area
-    fields: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.total_size_bytes, ingestion_metric_with_ingestion_stats.timestamp_year]
-    pivots: [ingestion_metric_with_ingestion_stats.log_type]
-    fill_fields: [ingestion_metric_with_ingestion_stats.timestamp_year]
-    sorts: [ingestion_metric_with_ingestion_stats.log_type, ingestion_metric_with_ingestion_stats.timestamp_year desc]
+    fields: [ingestion_metrics.log_type, ingestion_metrics.total_size_bytes, ingestion_metrics.timestamp_year]
+    pivots: [ingestion_metrics.log_type]
+    fill_fields: [ingestion_metrics.timestamp_year]
+    sorts: [ingestion_metrics.log_type, ingestion_metrics.timestamp_year desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -1032,40 +1032,40 @@
       options:
         steps: 5
     y_axes: [{label: Throughput %, orientation: left, series: [{axisId: ASSET_STATIC_IP
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: CORELIGHT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: CORELIGHT}, {
-            axisId: ELASTIC_PACKETBEATS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_PACKETBEATS
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: FORWARDER_HEARTBEAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: FORWARDER_HEARTBEAT},
-          {axisId: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_CLOUD_NAT - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_CLOUD_NAT},
-          {axisId: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_CSCC - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_DNS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GCP_FIREWALL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: GCP_VPC_FLOW - ingestion_metric_with_ingestion_stats.total_size_bytes, name: GCP_VPC_FLOW},
-          {axisId: GMAIL_LOGS - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GMAIL_LOGS -
-              ingestion_metric_with_ingestion_stats.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: GSUITE_AUDIT - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: LINUX_OS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: POWERSHELL - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: SNORT_IDS - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SNORT_IDS}, {
-            axisId: SQUID_WEBPROXY - ingestion_metric_with_ingestion_stats.total_size_bytes, id: SQUID_WEBPROXY
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: UDM - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: UDM}, {axisId: WAZUH - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WAZUH
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
-              - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINDOWS_AD - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes,
-            id: WINDOWS_SYSMON - ingestion_metric_with_ingestion_stats.total_size_bytes, name: WINDOWS_SYSMON},
-          {axisId: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes, id: WINEVTLOG - ingestion_metric_with_ingestion_stats.total_size_bytes,
+              - ingestion_metrics.total_size_bytes, id: ASSET_STATIC_IP - ingestion_metrics.total_size_bytes,
+            name: ASSET_STATIC_IP}, {axisId: CORELIGHT - ingestion_metrics.total_size_bytes,
+            id: CORELIGHT - ingestion_metrics.total_size_bytes, name: CORELIGHT}, {
+            axisId: ELASTIC_PACKETBEATS - ingestion_metrics.total_size_bytes, id: ELASTIC_PACKETBEATS
+              - ingestion_metrics.total_size_bytes, name: ELASTIC_PACKETBEATS}, {axisId: ELASTIC_WINLOGBEAT
+              - ingestion_metrics.total_size_bytes, id: ELASTIC_WINLOGBEAT - ingestion_metrics.total_size_bytes,
+            name: ELASTIC_WINLOGBEAT}, {axisId: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes,
+            id: FORWARDER_HEARTBEAT - ingestion_metrics.total_size_bytes, name: FORWARDER_HEARTBEAT},
+          {axisId: GCP - ingestion_metrics.total_size_bytes, id: GCP - ingestion_metrics.total_size_bytes,
+            name: GCP}, {axisId: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes,
+            id: GCP_CLOUD_NAT - ingestion_metrics.total_size_bytes, name: GCP_CLOUD_NAT},
+          {axisId: GCP_CSCC - ingestion_metrics.total_size_bytes, id: GCP_CSCC - ingestion_metrics.total_size_bytes,
+            name: GCP_CSCC}, {axisId: GCP_DNS - ingestion_metrics.total_size_bytes,
+            id: GCP_DNS - ingestion_metrics.total_size_bytes, name: GCP_DNS}, {axisId: GCP_FIREWALL
+              - ingestion_metrics.total_size_bytes, id: GCP_FIREWALL - ingestion_metrics.total_size_bytes,
+            name: GCP_FIREWALL}, {axisId: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes,
+            id: GCP_VPC_FLOW - ingestion_metrics.total_size_bytes, name: GCP_VPC_FLOW},
+          {axisId: GMAIL_LOGS - ingestion_metrics.total_size_bytes, id: GMAIL_LOGS -
+              ingestion_metrics.total_size_bytes, name: GMAIL_LOGS}, {axisId: GSUITE_AUDIT
+              - ingestion_metrics.total_size_bytes, id: GSUITE_AUDIT - ingestion_metrics.total_size_bytes,
+            name: GSUITE_AUDIT}, {axisId: LINUX_OS - ingestion_metrics.total_size_bytes,
+            id: LINUX_OS - ingestion_metrics.total_size_bytes, name: LINUX_OS}, {axisId: POWERSHELL
+              - ingestion_metrics.total_size_bytes, id: POWERSHELL - ingestion_metrics.total_size_bytes,
+            name: POWERSHELL}, {axisId: SNORT_IDS - ingestion_metrics.total_size_bytes,
+            id: SNORT_IDS - ingestion_metrics.total_size_bytes, name: SNORT_IDS}, {
+            axisId: SQUID_WEBPROXY - ingestion_metrics.total_size_bytes, id: SQUID_WEBPROXY
+              - ingestion_metrics.total_size_bytes, name: SQUID_WEBPROXY}, {axisId: UDM
+              - ingestion_metrics.total_size_bytes, id: UDM - ingestion_metrics.total_size_bytes,
+            name: UDM}, {axisId: WAZUH - ingestion_metrics.total_size_bytes, id: WAZUH
+              - ingestion_metrics.total_size_bytes, name: WAZUH}, {axisId: WINDOWS_AD
+              - ingestion_metrics.total_size_bytes, id: WINDOWS_AD - ingestion_metrics.total_size_bytes,
+            name: WINDOWS_AD}, {axisId: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes,
+            id: WINDOWS_SYSMON - ingestion_metrics.total_size_bytes, name: WINDOWS_SYSMON},
+          {axisId: WINEVTLOG - ingestion_metrics.total_size_bytes, id: WINEVTLOG - ingestion_metrics.total_size_bytes,
             name: WINEVTLOG}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     limit_displayed_rows_values:
@@ -1075,13 +1075,13 @@
     series_types: {}
     series_colors: {}
     series_labels:
-      ingestion_metric_with_ingestion_stats.log_type: Data Type
-      ingestion_metric_with_ingestion_stats.total_size_bytes: Ingested Throughput
-      ingestion_metric_with_ingestion_stats.total_events: Ingested Events
-      ingestion_metric_with_ingestion_stats.total_normalized_events: Normalized Events
-      ingestion_metric_with_ingestion_stats.total_error_events: Errors
-      ingestion_metric_with_ingestion_stats.total_parsing_error_events: Parsing Errors
-      ingestion_metric_with_ingestion_stats.total_validation_error_events: Validation Errors
+      ingestion_metrics.log_type: Data Type
+      ingestion_metrics.total_size_bytes: Ingested Throughput
+      ingestion_metrics.total_events: Ingested Events
+      ingestion_metrics.total_normalized_events: Normalized Events
+      ingestion_metrics.total_error_events: Errors
+      ingestion_metrics.total_parsing_error_events: Parsing Errors
+      ingestion_metrics.total_validation_error_events: Validation Errors
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
@@ -1090,7 +1090,7 @@
     truncate_text: true
     size_to_fit: true
     series_cell_visualizations:
-      ingestion_metric_with_ingestion_stats.total_events:
+      ingestion_metrics.total_events:
         is_active: true
     table_theme: unstyled
     enable_conditional_formatting: false
@@ -1103,7 +1103,7 @@
     hide_totals: false
     hide_row_totals: false
     listen:
-      Log Type: ingestion_metric_with_ingestion_stats.log_type
+      Log Type: ingestion_metrics.log_type
     row: 57
     col: 0
     width: 24
@@ -1129,9 +1129,9 @@
       type: advanced
       display: popover
       options: []
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     listens_to_filters: []
-    field: ingestion_metric_with_ingestion_stats.period_filter
+    field: ingestion_metrics.period_filter
   - name: Log Type
     title: Log Type
     type: field_filter
@@ -1142,6 +1142,6 @@
       type: advanced
       display: popover
       options: []
-    explore: ingestion_metric_with_ingestion_stats
+    explore: ingestion_metrics
     listens_to_filters: []
-    field: ingestion_metric_with_ingestion_stats.log_type
+    field: ingestion_metrics.log_type
