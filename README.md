@@ -1,5 +1,7 @@
 # Chronicle Security Block
 
+This is not an officially supported Google product. This project is not eligible for the [Google Open Source Software Vulnerability Rewards Program](https://bughunters.google.com/open-source-security).
+
 ## Why use the Chronicle Security Looker Block?
 **(1) Rapid Time To Value** - gain insights from your Chronicle data in minutes, not hours. The Chronicle Security Block includes pre-built dashboards and content focusing on the Data Ingestion Status and Health, context for Rule Detections, IOC matches and Alert prioritization, User Sign-ins, Asset Lookups, and Domain Lookups. Additionally, this data is organized into various Explorer views to enable adhoc querying and exploration of the Chronicle data.
 
